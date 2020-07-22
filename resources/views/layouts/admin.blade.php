@@ -10,6 +10,9 @@
     <title>@yield('title')</title>
 
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -17,15 +20,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-
+    
 
 </head>
 <body class="hold-transition sidebar-mini">
   
 
-<div class="wrapper">
+<div id="app" class="wrapper">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -170,16 +171,79 @@
 <!-- REQUIRED SCRIPTS -->
 
 
-@yield('script')
 
-<script src="https://unpkg.com/vue"></script>
+
+{{-- <script src="https://unpkg.com/vue"></script>
 <script>
     var app = new Vue({
         el: '#app',
     });
-</script>
-<script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
+</script> --}}
+
+
+{{-- @yield('script') --}}
 {{-- {!! $chart->script() !!} --}}
+
+<script>
+  $(document).ready(function(){
+
+    var $title = $('#title').val();
+
+      $('#submit').click(function () {
+
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+        $('#submit').html('Posting..'); 
+
+          $.ajax({
+              type: "POST",
+              url: "admin/dashboard/posts/save", // need to create this route
+              data: "",
+              dataType: 'JSON',
+              success: function (data) {
+                  alert('massage sent');
+                  $('#messages').html(data);
+              }
+          });
+      });
+
+    });
+
+    //       $.ajax({
+
+//       method: "POST",
+//       url: "/admin/dashboard/posts/save",
+//       data: $('#post_store').serialize(),
+//       dataType: "JSON",
+
+//       success: function( response ) {
+//           if(response.status=='success'){
+//             $('#submit_form').html('Submit');
+//             $('#res_message').show();
+//             $('#res_message').html(response.msg);
+//             $('#msg_div').removeClass('d-none');
+
+//             document.getElementById("post_store").reset(); 
+//             setTimeout(function(){
+//             $('#res_message').hide();
+//             $('#msg_div').hide();
+//             },10000);
+
+//           }else if(response.status=='error'){
+//             $('#res_message').html(response.msg);
+//             $('#msg_div').addClass('alert-danger');
+//           }
+
+//       }
+
+//       });
+
+//       });
+</script>
 </body>
 
 </html>

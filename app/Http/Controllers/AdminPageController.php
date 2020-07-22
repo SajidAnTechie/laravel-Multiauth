@@ -41,6 +41,7 @@ class AdminPageController extends Controller
             $users = User::paginate(5);
         }
 
+        // return back()->with(['users' => $users]);
         return view('admin-pagaes.users', ['users' => $users]);
     }
 

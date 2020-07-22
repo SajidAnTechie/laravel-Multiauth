@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdmincreateuserController extends Controller
 {
@@ -20,7 +21,7 @@ class AdmincreateuserController extends Controller
         return view('admin-pagaes.createusers');
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $attributes = request()->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -31,6 +32,10 @@ class AdmincreateuserController extends Controller
         ]);
 
         //return $attributes;
+        //$attributes['password'] = Hash::make($request->password);
+        //$attributes['password'] = Hash::make(request('password'));
+
+
 
         User::create($attributes);
 

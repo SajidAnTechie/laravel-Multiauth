@@ -86,12 +86,12 @@ class AdminPostsController extends Controller
 
 
 
-        //return back()->withSuccess('Post Created Successfully!');
+        return back()->withSuccess('Post Created Successfully!');
 
-        if (!is_null($post_store)) {
-            return response()->json(['status' => 'success', 'msg' => 'Post Created']);
-        } else {
-            return response()->json(['status' => 'error', 'msg' => 'Something went wrong']);
-        }
+        // if (!is_null($post_store)) {
+        //     return response()->json(['status' => 'success', 'msg' => 'Post Created']);
+        // } else {
+        //     return response()->json(['status' => 'error', 'msg' => 'Something went wrong']);
+        // }
     }
 }
